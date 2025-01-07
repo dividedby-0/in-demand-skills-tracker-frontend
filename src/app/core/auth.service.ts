@@ -10,7 +10,7 @@ import {tap} from "rxjs/operators";
   providedIn: "root",
 })
 export class AuthService {
-  private baseUrl = "http://localhost:3000/api/auth";
+  private baseUrl = "https://in-demand-skills-tracker-backend-production.up.railway.app/api/auth";
   private tokenKey = "authToken";
 
   constructor(private http: HttpClient) {
