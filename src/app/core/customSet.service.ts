@@ -6,7 +6,7 @@ import { Observable } from "rxjs";
   providedIn: "root",
 })
 export class CustomSetService {
-  private apiUrl = "http://localhost:3000/api/custom-set";
+  private apiUrl = "https://in-demand-skills-tracker-backend-production.up.railway.app/api/custom-set";
 
   constructor(private http: HttpClient) {}
 
