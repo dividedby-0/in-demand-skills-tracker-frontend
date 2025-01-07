@@ -1,0 +1,89 @@
+<h2 mat-dialog-title>{{ data.set.name }}</h2>
+<mat-dialog-content>
+  <div class="searchbar-container">
+    <mat-form-field class="searchbar">
+      <mat-label>Filter</mat-label>
+      <input matInput type="text" [(ngModel)]="searchTerm" />
+      @if (searchTerm) {
+      <button
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="searchTerm = ''"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+      }
+    </mat-form-field>
+  </div>
+  <div class="skills-section-title">
+    <h1>Skills</h1>
+    <p>Click skill card to edit. Badge indicates mentions</p>
+  </div>
+  <div class="main-section-container">
+    <div class="main-section-left-side">
+      <ng-container
+        *ngIf="
+          (data.set.skills | orderBy : 'votes' | filter : searchTerm).length >
+            0;
+          else noSkills
+        "
+      >
+        <div
+          class="skills-container"
+          *ngIf="data.set.skills.length > 0; else noSkills"
+        >
+          <div
+            class="grid-item"
+            *ngFor="
+              let skill of data.set.skills
+                | orderBy : 'votes'
+                | filter : searchTerm
+            "
+          >
+            <mat-card
+              class="skill-card"
+              (click)="onSkillCardClicked(skill, data)"
+            >
+              <mat-card-content
+                matBadge="{{ skill.votes }}"
+                matBadgePosition="after"
+                matBadgeColor="primary"
+              >
+                <span
+                  [ngClass]="{ 'font-bold': isAboveAverage(skill.votes) }"
+                  >{{ skill.name }}</span
+                >
+                <div
+                  class="tags-section"
+                  *ngIf="skill.tags && skill.tags.length"
+                >
+                  <mat-chip-set>
+                    <mat-chip *ngFor="let tag of skill.tags">{{
+                      tag
+                    }}</mat-chip>
+                  </mat-chip-set>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="main-section-right-side">
+      <div class="main-section-chart-container">
+        <figure id="set-donut-chart"></figure>
+      </div>
+    </div>
+    <ng-template #noSkills>
+      <div class="no-skills-message-container">
+        <p>No skills to show :(</p>
+      </div>
+    </ng-template>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button (click)="goBack()">Back</button>
+  <button mat-button color="warn" (click)="deleteSet()">Delete Location</button>
+  <button (click)="openAddSkillDialog(data.set)">Add New Skill</button>
+</mat-dialog-actions>

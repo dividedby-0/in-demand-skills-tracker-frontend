@@ -1,0 +1,92 @@
+<div class="home-container">
+  <mat-card class="cards-container">
+    <mat-card-content>
+      <div class="top-sections-container">
+        <section class="most-in-demand-section">
+          <div class="most-in-demand-section-title">
+            <h1>Top in-demand skills 📈</h1>
+          </div>
+          <div>
+            <table mat-table [dataSource]="dataSource" matSort>
+              <!-- Position Column -->
+              <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef>No.</th>
+                <td mat-cell *matCellDef="let skill; let i = index">
+                  {{ i + 1 }}
+                </td>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Skill</th>
+                <td mat-cell *matCellDef="let skill">{{ skill.name }}</td>
+              </ng-container>
+
+              <!-- Mentions Column -->
+              <ng-container matColumnDef="mentions">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Mentions
+                </th>
+                <td mat-cell *matCellDef="let skill">{{ skill.mentions }}</td>
+              </ng-container>
+
+              <!-- Most Mentions Column -->
+              <ng-container matColumnDef="mostMentionsIn">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Most mentions in
+                </th>
+                <td mat-cell *matCellDef="let skill">
+                  {{ skill.mostMentionsIn }}
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+
+            <div class="paginator-container">
+              <mat-paginator
+                [pageSizeOptions]="[5]"
+                showFirstLastButtons
+                [hidePageSize]="true"
+              >
+              </mat-paginator>
+            </div>
+          </div>
+        </section>
+        <section class="chart-section">
+          <h1>Tags chart</h1>
+          <figure id="donut-chart"></figure>
+        </section>
+      </div>
+      <section class="sets-container">
+        <h1>Locations 🌐</h1>
+        <div class="set-card-container">
+          <mat-card
+            class="set-card"
+            *ngFor="let set of availableSets"
+            (click)="onSetCardClicked(set)"
+          >
+            <mat-card-content>
+              <div class="set-title">
+                {{ set.name }}
+              </div>
+              <div class="total-skills">Skills: {{ set.skills.length }}</div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </section>
+
+      <div class="buttons-container">
+        <div class="left-aligned-buttons">
+          <button mat-flat-button (click)="logout()">Logout</button>
+        </div>
+        <div class="right-aligned-buttons">
+          <div class="add-set-button">
+            <button (click)="openAddCustomSetDialog()">Add New Location</button>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,27 @@
+:host {
+  display: block;
+  padding: 20px;
+}
+
+mat-dialog-actions {
+  justify-content: space-between;
+}
+
+.mentions-container {
+  display: flex;
+  align-items: baseline;
+}
+
+.mentions-buttons-container {
+  margin-left: 1rem;
+}
+
+.tags-section-title {
+  margin: 0.5rem 0;
+}
+
+mat-chip-set mat-chip {
+  background: #eee;
+  color: #999;
+  height: 1.1rem;
+}

@@ -1,0 +1,105 @@
+/* Base layout styles */
+.home-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.top-sections-container {
+  display: flex;
+}
+
+.most-in-demand-section {
+  flex: 1;
+}
+
+.most-in-demand-section-title {
+  display: flex;
+  align-content: flex-start;
+}
+
+.chart-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 10%;
+}
+
+.cards-container {
+  width: 80vw;
+  height: auto;
+}
+
+.paginator-container {
+  display: flex;
+  justify-content: center;
+}
+
+/* Component styles */
+.sets-container {
+  display: flex;
+  gap: 1rem;
+  padding: 10px;
+  background-color: #fff;
+  text-align: center;
+  flex-direction: column;
+  align-items: start;
+}
+
+.set-card-container {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.sets-container h1 {
+  margin-bottom: 10px;
+}
+
+.set-title {
+  margin: 5px 0;
+  color: black;
+}
+
+.total-skills {
+  color: gray;
+}
+
+.set-card {
+  width: auto;
+  transition: background-color 0.3s;
+}
+
+.set-card:hover {
+  background-color: #c4bdff;
+  cursor: pointer;
+}
+
+/* Buttons */
+.buttons-container {
+  display: flex;
+}
+
+.right-aligned-buttons {
+  margin-left: auto;
+}
+
+button {
+  margin-top: 10px;
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #303f9f;
+}
+
+table {
+  width: 100%;
+}

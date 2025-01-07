@@ -1,0 +1,29 @@
+<div class="add-new-skill-container">
+  <h2 mat-dialog-title>Add New Skill</h2>
+  <mat-dialog-content>
+    <form (ngSubmit)="addSkill(skillForm)" #skillForm="ngForm">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Name" name="name" ngModel required />
+        <mat-error
+          *ngIf="
+            skillForm.controls['name']?.invalid &&
+            skillForm.controls['name']?.touched
+          "
+        >
+          Name is required.
+        </mat-error>
+      </mat-form-field>
+      <mat-dialog-actions>
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button
+          mat-button
+          color="primary"
+          type="submit"
+          [disabled]="!skillForm.valid"
+        >
+          Add
+        </button>
+      </mat-dialog-actions>
+    </form>
+  </mat-dialog-content>
+</div>

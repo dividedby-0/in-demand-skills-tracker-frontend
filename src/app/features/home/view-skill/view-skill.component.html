@@ -1,0 +1,44 @@
+<h1 mat-dialog-title>{{ data.skill.name }}</h1>
+<div mat-dialog-content>
+  <div class="mentions-container">
+    <p>Number of mentions: {{ data.skill.votes }}</p>
+    <div class="mentions-buttons-container">
+      <button
+        class="mentions-button"
+        mat-icon-button
+        color="primary"
+        (click)="increaseSkillVotes()"
+      >
+        <mat-icon>add</mat-icon>
+      </button>
+
+      <button
+        class="mentions-button"
+        mat-icon-button
+        color="warn"
+        (click)="decreaseSkillVotes()"
+      >
+        <mat-icon>remove</mat-icon>
+      </button>
+    </div>
+  </div>
+  <section class="tags-section">
+    <h2 class="tags-section-title">Tags</h2>
+    <p>Click on a tag to delete it</p>
+    <mat-chip-set *ngIf="data.skill.tags.length > 0">
+      <mat-chip *ngFor="let tag of data.skill.tags" (click)="deleteTag(tag)">{{
+        tag
+      }}</mat-chip>
+    </mat-chip-set>
+    <p *ngIf="data.skill.tags.length === 0">No tags to show :(</p>
+    <form [formGroup]="tagForm" (ngSubmit)="addNewTag()">
+      <mat-form-field>
+        <input matInput formControlName="newTag" placeholder="New Tag" />
+      </mat-form-field>
+      <button mat-button type="submit">Add Tag</button>
+    </form>
+  </section>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="dialogRef.close()">Close</button>
+</div>

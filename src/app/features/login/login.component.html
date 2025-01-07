@@ -1,0 +1,52 @@
+<div class="container mt-5">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="add-space-top">
+      <form (ngSubmit)="login()">
+        <mat-form-field appearance="fill">
+          <mat-label>Username</mat-label>
+          <input
+            matInput
+            type="text"
+            [formControl]="usernameFormControl"
+            name="username"
+          />
+          <mat-error *ngIf="usernameFormControl.hasError('required')">
+            Username is required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="add-space-top">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            type="password"
+            [formControl]="passwordFormControl"
+            name="password"
+          />
+          <mat-error *ngIf="passwordFormControl.hasError('required')">
+            Password is required
+          </mat-error>
+        </mat-form-field>
+        <button
+          class="add-space-top"
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="
+            usernameFormControl.invalid || passwordFormControl.invalid
+          "
+        >
+          Login
+        </button>
+        <div *ngIf="loginError" class="alert alert-danger mt-3">
+          {{ loginError }}
+        </div>
+      </form>
+      <div class="text-center add-space-top mt-3">
+        <a routerLink="/register">Create an account</a>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
