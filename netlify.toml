@@ -1,7 +1,0 @@
-[build]
-node_version = "17.3.0"
-command = "npm run build:prod"
-publish = "/dist"
-
-[context.production]
-environment = { NODE_ENV = "production" }
