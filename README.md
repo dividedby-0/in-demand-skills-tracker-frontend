@@ -23,6 +23,8 @@ A live version can be found [here](https://vermillion-khapse-9e6bb3.netlify.app)
 
 ## 🎨 Frontend
 - Built with **Angular** and styled using **Angular Material**
+- Authenticates to backend using JWT
+- Route guards to prevent address tampering
 - Allows users to view, add, update, and manage skills and locations
 - Supports upvoting skills to reflect their demand
 - Features data visualizations with **D3.js** for clear insight into trends
