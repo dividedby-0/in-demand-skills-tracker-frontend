@@ -1,16 +1,17 @@
-// Angular imports
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 
-// RxJS imports
 import {Observable} from "rxjs";
 import {tap} from "rxjs/operators";
+
+import {environment} from "../../../environment";
 
 @Injectable({
   providedIn: "root",
 })
 export class AuthService {
-  private baseUrl = "https://in-demand-skills-tracker-backend-production.up.railway.app/api/auth";
+  private endpoint = "auth";
+  private baseUrl = `${environment.apiUrl}/${this.endpoint}`;
   private tokenKey = "authToken";
 
   constructor(private http: HttpClient) {
@@ -18,7 +19,6 @@ export class AuthService {
 
   login(username: string | null, password: string | null): Observable<any> {
     return this.http.post(`${this.baseUrl}/login`, {username, password}).pipe(
-      // Store the token in localStorage after a successful login
       tap((response: any) => {
         localStorage.setItem(this.tokenKey, response.token);
       })
@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.removeItem(this.tokenKey); // Remove the token from LocalStorage
+    localStorage.removeItem(this.tokenKey);
   }
 
   getToken(): string | null {

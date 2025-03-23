@@ -1,12 +1,14 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
+import {environment} from "../../../environment";
 
 @Injectable({
   providedIn: "root",
 })
 export class CustomSetService {
-  private apiUrl = "https://in-demand-skills-tracker-backend-production.up.railway.app/api/custom-set";
+  private endpoint = 'custom-set';
+  private apiUrl = `${environment.apiUrl}/${this.endpoint}`;
 
   constructor(private http: HttpClient) {}
 
