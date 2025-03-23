@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: process.env["apiUrl"]
+  apiUrl: 'https://in-demand-skills-tracker-backend-production.up.railway.app/api'
 };

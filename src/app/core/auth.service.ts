@@ -15,6 +15,7 @@ export class AuthService {
   private tokenKey = "authToken";
 
   constructor(private http: HttpClient) {
+    console.log(environment.apiUrl);
   }
 
   login(username: string | null, password: string | null): Observable<any> {

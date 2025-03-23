@@ -10,7 +10,9 @@ export class CustomSetService {
   private endpoint = 'custom-set';
   private apiUrl = `${environment.apiUrl}/${this.endpoint}`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    console.log(environment.apiUrl);
+  }
 
   getCustomSets(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
