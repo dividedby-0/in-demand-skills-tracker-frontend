@@ -1,20 +1,21 @@
 // Angular imports
-import { Router } from "@angular/router";
-import { Component, OnInit, AfterViewInit, ViewChild } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
-import { MatPaginator } from "@angular/material/paginator";
-import { MatTableDataSource } from "@angular/material/table";
-import { MatSort, MatSortable } from "@angular/material/sort";
+import {Router} from "@angular/router";
+import {Component, OnInit, AfterViewInit, ViewChild} from "@angular/core";
+import {MatDialog} from "@angular/material/dialog";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatTableDataSource} from "@angular/material/table";
+import {MatSort, MatSortable} from "@angular/material/sort";
 
 // Custom imports
-import { AuthService } from "../../core/auth.service";
-import { CustomSetService } from "../../core/customSet.service";
-import { AddCustomSetDialogComponent } from "./add-set-dialog/add-set-dialog.component";
-import { ViewSetComponent } from "./view-set/view-set.component";
+import {AuthService} from "../../core/auth.service";
+import {CustomSetService} from "../../core/customSet.service";
+import {AddCustomSetDialogComponent} from "./add-set-dialog/add-set-dialog.component";
+import {ViewSetComponent} from "./view-set/view-set.component";
+import {SnackbarService} from "../../shared/snackbar.service";
 
 // Interface import
-import { Skill } from "../../interfaces/skill.interface";
-import { CustomSet } from "../../interfaces/customSet.interface";
+import {Skill} from "../../interfaces/skill.interface";
+import {CustomSet} from "../../interfaces/customSet.interface";
 
 // Libraries
 import * as d3 from "d3";
@@ -45,8 +46,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
     private authService: AuthService,
     private customSetService: CustomSetService,
     private router: Router,
-    private dialog: MatDialog
-  ) {}
+    private dialog: MatDialog,
+    private snackbarService: SnackbarService
+  ) {
+  }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -59,12 +62,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
     // defer the update to the next tick of the event loop, preventing ExpressionChangedAfterItHasBeenCheckedError
     setTimeout(() => {
       this.dataSource.paginator = this.paginator;
-      this.sort.sort({ id: "mentions", start: "desc" } as MatSortable);
+      this.sort.sort({id: "mentions", start: "desc"} as MatSortable);
       this.dataSource.sort = this.sort;
     });
   }
 
   fetchCustomSets(): void {
+    this.snackbarService.showSnackbar("Fetching data...", 'Close');
     this.customSetService.getCustomSets().subscribe({
       next: (fetchedSets) => {
         this.availableSets = fetchedSets;
@@ -79,6 +83,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
         this.drawTagsChart();
       },
       error: (error) => {
+        this.snackbarService.showSnackbar(error.error.message, 'Close');
+      },
+      complete: () => {
+        this.snackbarService.hideSnackbar();
       },
     });
   }
@@ -161,7 +169,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(ViewSetComponent, {
       width: "90%",
       height: "90%",
-      data: { set: set },
+      data: {set: set},
     });
 
     dialogRef.componentInstance.viewSetDialogClosed.subscribe(() => {
@@ -275,5 +283,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   logout(): void {
     this.authService.logout();
     this.router.navigate(["/login"]);
+    this.snackbarService.showSnackbar("Logged out.", 'Close');
   }
 }

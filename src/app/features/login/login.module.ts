@@ -27,7 +27,7 @@ import { RouterModule } from "@angular/router";
     MatDialogModule,
     MatCardModule,
     RouterModule,
-    LogoComponent
+    LogoComponent,
   ],
 })
 export class LoginModule {}

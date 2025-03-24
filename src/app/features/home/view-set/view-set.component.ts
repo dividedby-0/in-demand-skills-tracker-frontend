@@ -9,12 +9,13 @@ import { ViewSkillComponent } from "../view-skill/view-skill.component";
 // Services
 import { CustomSetService } from "../../../core/customSet.service";
 import { ConfirmDialogService } from "../../../shared/confirm-dialog.service";
+import {SnackbarService} from "../../../shared/snackbar.service";
 
 // Interfaces
 import { Skill } from "../../../interfaces/skill.interface";
 
 // Libraries
-import * as d3 from "d3"; // TODO: d3 should be imported in shared module
+import * as d3 from "d3";
 
 @Component({
   selector: "app-view-set",
@@ -38,7 +39,8 @@ export class ViewSetComponent implements OnInit {
     private dialog: MatDialog,
     private customSetService: CustomSetService,
     private confirmDialogService: ConfirmDialogService,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private snackbarService: SnackbarService
   ) {}
 
   ngOnInit(): void {
@@ -74,6 +76,10 @@ export class ViewSetComponent implements OnInit {
               this.viewSetDialogClosed.emit();
             },
             error: (error) => {
+              this.snackbarService.showSnackbar(error.error.message, 'Close');
+            },
+            complete: () => {
+              this.snackbarService.showSnackbar("Deleted successfully.", 'Close');
             },
           });
         }
@@ -93,6 +99,7 @@ export class ViewSetComponent implements OnInit {
         this.data.set = updatedSet;
       },
       error: (error) => {
+        this.snackbarService.showSnackbar(error.error.message, 'Close');
       },
     });
   }
