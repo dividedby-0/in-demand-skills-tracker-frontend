@@ -13,18 +13,39 @@
             [(ngModel)]="newUsername"
             name="newUsername"
             required
+            minlength="5"
+            maxlength="20"
+            pattern="^[a-zA-Z0-9_-]+$"
+            #username="ngModel"
           />
+          <mat-error *ngIf="username.invalid && (username.dirty || username.touched)">
+            <ng-container *ngIf="username.errors?.['required']">Username is required.</ng-container>
+            <ng-container *ngIf="username.errors?.['minlength']">Username must be at least 5 characters long.</ng-container>
+            <ng-container *ngIf="username.errors?.['maxlength']">Username must be at most 20 characters long.
+            </ng-container>
+            <ng-container *ngIf="username.errors?.['pattern']">Username can only contain letters, numbers,
+              underscores, and hyphens.
+            </ng-container>
+          </mat-error>
         </mat-form-field>
+
         <mat-form-field appearance="fill">
           <mat-label>Email</mat-label>
           <input
             matInput
-            type="text"
+            type="email"
             [(ngModel)]="newEmail"
             name="newEmail"
             required
+            pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+            #email="ngModel"
           />
+          <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">
+            <ng-container *ngIf="email.errors?.['required']">Email is required.</ng-container>
+            <ng-container *ngIf="email.errors?.['pattern']">Please enter a valid email address.</ng-container>
+          </mat-error>
         </mat-form-field>
+
         <mat-form-field appearance="fill">
           <mat-label>Password</mat-label>
           <input
@@ -33,8 +54,21 @@
             [(ngModel)]="newPassword"
             name="newPassword"
             required
+            minlength="8"
+            pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*$"
+            #password="ngModel"
           />
+          <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
+            <ng-container *ngIf="password.errors?.['required']">Password is required.</ng-container>
+            <ng-container *ngIf="password.errors?.['minlength']">Password must be at least 8 characters
+              long.
+            </ng-container>
+            <ng-container *ngIf="password.errors?.['pattern']">Password must contain at least one uppercase letter, one
+              lowercase letter, and one number.
+            </ng-container>
+          </mat-error>
         </mat-form-field>
+
         <button mat-raised-button color="primary" type="submit">
           Register
         </button>
