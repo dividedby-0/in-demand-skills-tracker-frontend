@@ -11,19 +11,21 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatCardModule } from "@angular/material/card";
 
 import { RegistrationComponent } from "./registration.component";
+import {LogoComponent} from "../../shared/logo/logo.component";
 
 @NgModule({
   declarations: [RegistrationComponent],
-  imports: [
-    CommonModule,
-    FormsModule,
-    // Angular Material modules
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatCardModule,
-    RouterModule,
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        // Angular Material modules
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatCardModule,
+        RouterModule,
+        LogoComponent,
+    ],
 })
 export class RegistrationModule {}

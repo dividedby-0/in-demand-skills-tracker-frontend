@@ -29,6 +29,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 // Pipes
 import { OrderByPipe } from "../../pipes/order-by.pipe";
 import { FilterPipe } from "../../pipes/filter.pipe";
+import {LogoComponent} from "../../shared/logo/logo.component";
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { FilterPipe } from "../../pipes/filter.pipe";
 
     // Animations
     BrowserAnimationsModule,
+    LogoComponent,
   ],
 })
 export class HomeModule {}

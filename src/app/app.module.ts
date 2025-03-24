@@ -33,6 +33,7 @@ import { CoreModule } from "./core/core.module";
 import { HomeModule } from "./features/home/home.module";
 import { LoginModule } from "./features/login/login.module";
 import { RegistrationModule } from "./features/registration/registration.module";
+import { LogoComponent } from './shared/logo/logo.component';
 
 @NgModule({
   declarations: [AppComponent, ConfirmDialogComponent],
@@ -56,6 +57,7 @@ import { RegistrationModule } from "./features/registration/registration.module"
     LoginModule,
     HomeModule,
     CoreModule,
+    LogoComponent,
 
     // Routing module
     AppRoutingModule,

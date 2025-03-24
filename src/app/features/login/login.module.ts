@@ -10,6 +10,7 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatCardModule } from "@angular/material/card";
 
 import { LoginComponent } from "./login.component";
+import {LogoComponent} from "../../shared/logo/logo.component";
 
 import { RouterModule } from "@angular/router";
 
@@ -26,6 +27,7 @@ import { RouterModule } from "@angular/router";
     MatDialogModule,
     MatCardModule,
     RouterModule,
+    LogoComponent
   ],
 })
 export class LoginModule {}
