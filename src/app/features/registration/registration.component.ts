@@ -22,12 +22,10 @@ export class RegistrationComponent implements OnInit {
       .register(this.newUsername, this.newEmail, this.newPassword)
       .subscribe({
         next: (response) => {
-          console.log(response); // Handle successful registration response
           this.router.navigate(["/login"]);
         },
         error: (error) => {
-          this.registrationError = error.error.message; // Set registration error message
-          console.error(error); // Log error
+          this.registrationError = error.error.message;
         },
       });
   }

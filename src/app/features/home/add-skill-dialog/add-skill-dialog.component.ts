@@ -32,15 +32,12 @@ export class AddSkillDialogComponent implements OnInit {
 
       this.customSetService.addSkill(customSetId, formData).subscribe({
         next: (response) => {
-          console.log("Skill added successfully:", response);
           this.dialogRef.close();
         },
         error: (error) => {
-          console.error("Error adding skill:", error);
         },
       });
 
-      console.log("Adding skill:", formData.name);
       this.dialogRef.close(formData);
     }
   }

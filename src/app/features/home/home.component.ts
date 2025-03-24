@@ -79,7 +79,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
         this.drawTagsChart();
       },
       error: (error) => {
-        console.error("Error fetching sets:", error);
       },
     });
   }

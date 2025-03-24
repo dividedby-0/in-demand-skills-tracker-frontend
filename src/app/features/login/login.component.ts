@@ -29,12 +29,10 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(username, password).subscribe({
       next: (response) => {
-        console.log(response); // Handle successful login response
         this.router.navigate(["/home"]);
       },
       error: (error) => {
-        this.loginError = error.error.message; // Set login error message
-        console.error(error); // Log error
+        this.loginError = error.error.message;
       },
     });
   }

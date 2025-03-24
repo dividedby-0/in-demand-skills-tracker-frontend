@@ -31,11 +31,9 @@ export class ViewSkillComponent {
     skill.votes++;
     this.customSetService.updateVotes(skill, this.data.setId).subscribe({
       next: (response) => {
-        console.log("Skill votes updated successfully:", response);
         // this.dialogRef.close();
       },
       error: (error) => {
-        console.error("Error updating skill votes:", error);
       },
     });
   }
@@ -49,11 +47,9 @@ export class ViewSkillComponent {
     skill.votes--;
     this.customSetService.updateVotes(skill, this.data.setId).subscribe({
       next: (response) => {
-        console.log("Skill votes updated successfully:", response);
         // this.dialogRef.close();
       },
       error: (error) => {
-        console.error("Error updating skill votes:", error);
       },
     });
   }
@@ -71,11 +67,9 @@ export class ViewSkillComponent {
         )
         .subscribe({
           next: (response) => {
-            console.log("Tag added successfully:", response);
             this.tagForm.reset();
           },
           error: (error) => {
-            console.error("Error adding tag:", error);
           },
         });
     }
@@ -93,11 +87,9 @@ export class ViewSkillComponent {
       )
       .subscribe({
         next: (response) => {
-          console.log("Tag deleted successfully:", response);
           this.tagForm.reset();
         },
         error: (error) => {
-          console.error("Error deleting tag:", error);
         },
       });
   }

@@ -70,12 +70,10 @@ export class ViewSetComponent implements OnInit {
         if (result) {
           this.customSetService.deleteCustomSet(this.data.set._id).subscribe({
             next: () => {
-              console.log("Set deleted successfully");
               this.dialog.closeAll();
               this.viewSetDialogClosed.emit();
             },
             error: (error) => {
-              console.error("Error deleting set:", error);
             },
           });
         }
@@ -93,10 +91,8 @@ export class ViewSetComponent implements OnInit {
     this.customSetService.getSetById(setId).subscribe({
       next: (updatedSet) => {
         this.data.set = updatedSet;
-        console.log("Updated set data fetched successfully");
       },
       error: (error) => {
-        console.error("Error fetching updated set data:", error);
       },
     });
   }

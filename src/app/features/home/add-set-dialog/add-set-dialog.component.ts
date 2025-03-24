@@ -23,15 +23,12 @@ export class AddCustomSetDialogComponent implements OnInit {
 
       this.customSetService.addCustomSet(formData).subscribe({
         next: (response) => {
-          console.log("Set added successfully:", response);
           this.dialogRef.close();
         },
         error: (error) => {
-          console.error("Error adding set:", error);
         },
       });
 
-      console.log("Adding set:", formData.name);
       this.dialogRef.close(formData);
     }
   }
