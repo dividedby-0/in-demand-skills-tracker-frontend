@@ -1,6 +1,7 @@
-<h1 mat-dialog-title>{{ data.skill.name }}</h1>
+<h1 mat-dialog-title>Edit skill: {{ data.skill.name }}</h1>
 <div mat-dialog-content>
   <div class="mentions-container">
+    <h1>Mentions</h1>
     <p>Number of mentions: {{ data.skill.votes }}</p>
     <div class="mentions-buttons-container">
       <button
@@ -22,22 +23,31 @@
       </button>
     </div>
   </div>
+
+  <hr class="divider">
+
   <section class="tags-section">
-    <h2 class="tags-section-title">Tags</h2>
-    <p>Click on a tag to delete it</p>
-    <mat-chip-set *ngIf="data.skill.tags.length > 0">
-      <mat-chip *ngFor="let tag of data.skill.tags" (click)="deleteTag(tag)">{{
-        tag
-      }}</mat-chip>
-    </mat-chip-set>
-    <p *ngIf="data.skill.tags.length === 0">No tags to show :(</p>
+    <h1>Tags</h1>
+    <p>(click on a tag to delete it)</p>
+
+    <div class="tags-area">
+      <mat-chip-set *ngIf="data.skill.tags.length > 0">
+        <mat-chip *ngFor="let tag of data.skill.tags" (click)="deleteTag(tag)">{{
+            tag
+          }}
+        </mat-chip>
+      </mat-chip-set>
+      <p *ngIf="data.skill.tags.length === 0">No tags to show :(</p>
+    </div>
+
     <form [formGroup]="tagForm" (ngSubmit)="addNewTag()">
       <mat-form-field>
-        <input matInput formControlName="newTag" placeholder="New Tag" />
+        <input matInput formControlName="newTag" placeholder="Type to add a new tag..."/>
       </mat-form-field>
-      <button mat-button type="submit">Add Tag</button>
     </form>
+
   </section>
+
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="dialogRef.close()">Close</button>

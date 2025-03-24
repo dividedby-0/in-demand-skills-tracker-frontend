@@ -11,10 +11,12 @@ mat-dialog-content {
   display: flex;
   flex-direction: column;
   align-content: space-between;
+  justify-content: space-between;
 }
 
 mat-dialog-actions {
   justify-content: space-between;
+  margin-top: auto;
 }
 
 mat-dialog-actions button {
@@ -97,6 +99,7 @@ p {
 
 .no-skills-message-container p {
   font-style: italic;
+  font-size: 2rem;
 }
 
 button {

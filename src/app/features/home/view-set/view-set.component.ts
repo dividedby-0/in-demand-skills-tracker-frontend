@@ -66,7 +66,7 @@ export class ViewSetComponent implements OnInit {
     this.confirmDialogService
       .confirm(
         "Confirm Delete",
-        "Are you sure you want to delete this location?"
+        "Are you sure you want to delete this location/company?"
       )
       .subscribe((result) => {
         if (result) {

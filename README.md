@@ -11,7 +11,7 @@
 ![Expressjs](https://img.shields.io/badge/Express-000000.svg?style=for-the-badge&logo=Express&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
 
-A full-stack application that helps users explore and manage the most sought-after tech skills by location.
+A full-stack application that helps users explore and manage the most sought-after tech skills by location/company.
 
 ![App screenshot](./screenshots/screenshot1.png)
 
@@ -27,7 +27,7 @@ A live version can be found [here](https://vermillion-khapse-9e6bb3.netlify.app)
 - Built with **Angular** and styled using **Angular Material**
 - Authenticates to backend using JWT
 - Route guards to prevent address tampering
-- Allows users to view, add, update, and manage skills and locations
+- Allows users to view, add, update, and manage skills and locations/companies
 - Supports upvoting skills to reflect their demand
 - Features data visualizations with **D3.js** for clear insight into trends
 - Hosted on **Netlify**
@@ -41,7 +41,7 @@ A live version can be found [here](https://vermillion-khapse-9e6bb3.netlify.app)
 - Find the backend repo [here](https://github.com/dividedby-0/in-demand-skills-tracker-backend)
 
 # 🚀 Future plans
-- [ ] Add a skill search feature to allow users to find skills by name or location.
+- [ ] Add a skill search feature to allow users to find skills by name or location/company.
 
 # 📝 License
 This project is licensed under the [MIT License](https://github.com/dividedby-0/in-demand-skills-tracker-frontend/blob/main/LICENSE).
