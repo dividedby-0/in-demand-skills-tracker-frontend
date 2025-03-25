@@ -1,8 +1,9 @@
-import { Component, Inject } from "@angular/core";
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { CustomSetService } from "../../../core/customSet.service";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { SnackbarService } from "../../../shared/snackbar.service";
+import {Component, Inject} from "@angular/core";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {CustomSetService} from "../../../core/customSet.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {SnackbarService} from "../../../shared/snackbar.service";
+import {ConfirmDialogService} from "../../../shared/confirm-dialog.service";
 
 @Component({
   selector: "app-view-skill",
@@ -17,7 +18,8 @@ export class ViewSkillComponent {
     public dialogRef: MatDialogRef<ViewSkillComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private customSetService: CustomSetService,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
+    private confirmDialogService: ConfirmDialogService
   ) {
     this.tagForm = this.fb.group({
       newTag: ["", Validators.required],
@@ -47,6 +49,12 @@ export class ViewSkillComponent {
       skill.skillId = skill._id; // needed to avoid ambiguity in backend
       delete skill._id;
     }
+
+    if (skill.votes === 1) {
+      this.snackbarService.showSnackbar("Mentions cannot be less than 1. Delete skill instead", 'Close');
+      return;
+    }
+
     skill.votes--;
     this.customSetService.updateVotes(this.data.setId, skill.skillId, skill.votes).subscribe({
       next: (response) => {
@@ -55,6 +63,23 @@ export class ViewSkillComponent {
       error: (error) => {
         this.snackbarService.showSnackbar(error.error.message, 'Close');
       },
+    });
+  }
+
+  deleteSkill(): void {
+    this.confirmDialogService.confirm('Confirm Delete', 'Are you sure you want to delete this skill?').subscribe((result) => {
+      if (result) {
+        this.customSetService
+          .deleteSkill(this.data.setId, this.data.skill._id)
+          .subscribe({
+            next: (response) => {
+              this.dialogRef.close();
+            },
+            error: (error) => {
+              this.snackbarService.showSnackbar(error.error.message, 'Close');
+            },
+          });
+      }
     });
   }
 

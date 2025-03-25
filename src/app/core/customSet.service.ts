@@ -46,7 +46,6 @@ export class CustomSetService {
     return this.http.put<any>(url, { votes });
   }
 
-  // Used for both updating/deleting
   updateSkillTags(
     setId: string,
     skillId: string,
@@ -54,5 +53,10 @@ export class CustomSetService {
   ): Observable<any> {
     const url = `${this.apiUrl}/${setId}/update-skill-tags/${skillId}`;
     return this.http.put<any>(url, { tags });
+  }
+
+  deleteSkill(setId: string, skillId: string): Observable<any> {
+    const url = `${this.apiUrl}/${setId}/remove-skill/${skillId}`;
+    return this.http.delete<any>(url);
   }
 }
