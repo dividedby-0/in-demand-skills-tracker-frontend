@@ -2,6 +2,7 @@ import { Component, Inject } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { CustomSetService } from "../../../core/customSet.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { SnackbarService } from "../../../shared/snackbar.service";
 
 @Component({
   selector: "app-view-skill",
@@ -15,7 +16,8 @@ export class ViewSkillComponent {
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<ViewSkillComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private customSetService: CustomSetService
+    private customSetService: CustomSetService,
+    private snackbarService: SnackbarService
   ) {
     this.tagForm = this.fb.group({
       newTag: ["", Validators.required],
@@ -29,11 +31,12 @@ export class ViewSkillComponent {
       delete skill._id;
     }
     skill.votes++;
-    this.customSetService.updateVotes(skill, this.data.setId).subscribe({
+    this.customSetService.updateVotes(this.data.setId, skill.skillId, skill.votes).subscribe({
       next: (response) => {
         // this.dialogRef.close();
       },
       error: (error) => {
+        this.snackbarService.showSnackbar(error.error.message, 'Close');
       },
     });
   }
@@ -45,11 +48,12 @@ export class ViewSkillComponent {
       delete skill._id;
     }
     skill.votes--;
-    this.customSetService.updateVotes(skill, this.data.setId).subscribe({
+    this.customSetService.updateVotes(this.data.setId, skill.skillId, skill.votes).subscribe({
       next: (response) => {
         // this.dialogRef.close();
       },
       error: (error) => {
+        this.snackbarService.showSnackbar(error.error.message, 'Close');
       },
     });
   }
@@ -70,6 +74,7 @@ export class ViewSkillComponent {
             this.tagForm.reset();
           },
           error: (error) => {
+            this.snackbarService.showSnackbar(error.error.message, 'Close');
           },
         });
     }
@@ -90,6 +95,7 @@ export class ViewSkillComponent {
           this.tagForm.reset();
         },
         error: (error) => {
+          this.snackbarService.showSnackbar(error.error.message, 'Close');
         },
       });
   }

@@ -41,9 +41,9 @@ export class CustomSetService {
     return this.http.put<any>(url, skill);
   }
 
-  updateVotes(skill: any, setId: string): Observable<any> {
-    const url = `${this.apiUrl}/${setId}/update-votes`;
-    return this.http.put<any>(url, skill);
+  updateVotes(setId: string, skillId: string, votes: number): Observable<any> {
+    const url = `${this.apiUrl}/${setId}/update-votes/${skillId}`;
+    return this.http.put<any>(url, { votes });
   }
 
   // Used for both updating/deleting
