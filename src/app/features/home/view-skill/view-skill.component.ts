@@ -69,7 +69,6 @@ export class ViewSkillComponent {
   deleteSkill(): void {
     this.confirmDialogService.confirm('Confirm Delete', 'Are you sure you want to delete this skill?').subscribe((result) => {
       if (result) {
-        console.log(this.data);
         this.customSetService
           .deleteSkill(this.data.setId, this.data.skill.skillId || this.data.skill._id)
           .subscribe({
@@ -87,13 +86,11 @@ export class ViewSkillComponent {
   addNewTag() {
     const newTagValue = this.tagForm.get("newTag")?.value;
     if (newTagValue) {
-      this.data.skill.tags.push(newTagValue);
-
       this.customSetService
-        .updateSkillTags(
+        .addSkillTag(
           this.data.setId,
           this.data.skill._id,
-          this.data.skill.tags
+          newTagValue
         )
         .subscribe({
           next: (response) => {
@@ -102,20 +99,16 @@ export class ViewSkillComponent {
           error: (error) => {
             this.snackbarService.showSnackbar(error.error.message, 'Close');
           },
+          complete: () => {
+            this.data.skill.tags.push(newTagValue);
+          }
         });
     }
   }
 
   deleteTag(tag: string) {
-    this.data.skill.tags = this.data.skill.tags.filter(
-      (t: string) => t !== tag
-    );
     this.customSetService
-      .updateSkillTags(
-        this.data.setId,
-        this.data.skill._id,
-        this.data.skill.tags
-      )
+      .removeSkillTag(this.data.setId, this.data.skill._id, tag)
       .subscribe({
         next: (response) => {
           this.tagForm.reset();
@@ -123,6 +116,10 @@ export class ViewSkillComponent {
         error: (error) => {
           this.snackbarService.showSnackbar(error.error.message, 'Close');
         },
+        complete: () => {
+          this.data.skill.tags.splice(this.data.skill.tags.indexOf(tag), 1);
+          this.snackbarService.showSnackbar("Tag deleted successfully.", 'Close');
+        }
       });
   }
 }

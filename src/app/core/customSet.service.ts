@@ -41,22 +41,23 @@ export class CustomSetService {
     return this.http.put<any>(url, skill);
   }
 
+  deleteSkill(setId: string, skillId: string): Observable<any> {
+    const url = `${this.apiUrl}/${setId}/remove-skill/${skillId}`;
+    return this.http.delete<any>(url);
+  }
+
   updateVotes(setId: string, skillId: string, votes: number): Observable<any> {
     const url = `${this.apiUrl}/${setId}/update-votes/${skillId}`;
     return this.http.put<any>(url, { votes });
   }
 
-  updateSkillTags(
-    setId: string,
-    skillId: string,
-    tags: string[]
-  ): Observable<any> {
-    const url = `${this.apiUrl}/${setId}/update-skill-tags/${skillId}`;
-    return this.http.put<any>(url, { tags });
+  addSkillTag(setId: string, skillId: string, tag: string): Observable<any> {
+    const url = `${this.apiUrl}/${setId}/add-tag/${skillId}`;
+    return this.http.post<any>(url, { tag });
   }
 
-  deleteSkill(setId: string, skillId: string): Observable<any> {
-    const url = `${this.apiUrl}/${setId}/remove-skill/${skillId}`;
+  removeSkillTag(setId: string, skillId: string, tag: string): Observable<any> {
+    const url = `${this.apiUrl}/${setId}/remove-tag/${skillId}/${tag}`;
     return this.http.delete<any>(url);
   }
 }
