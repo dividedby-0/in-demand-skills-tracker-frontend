@@ -69,8 +69,9 @@ export class ViewSkillComponent {
   deleteSkill(): void {
     this.confirmDialogService.confirm('Confirm Delete', 'Are you sure you want to delete this skill?').subscribe((result) => {
       if (result) {
+        console.log(this.data);
         this.customSetService
-          .deleteSkill(this.data.setId, this.data.skill._id)
+          .deleteSkill(this.data.setId, this.data.skill.skillId || this.data.skill._id)
           .subscribe({
             next: (response) => {
               this.dialogRef.close();
