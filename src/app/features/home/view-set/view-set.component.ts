@@ -87,9 +87,13 @@ export class ViewSetComponent implements OnInit {
   }
 
   onSkillCardClicked(skill: any, data: any): void {
-    this.dialog.open(ViewSkillComponent, {
+    const dialogRef = this.dialog.open(ViewSkillComponent, {
       width: "500px",
       data: { skill: skill, setId: data.set._id },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+        this.fetchUpdatedSet(this.data.set._id);
     });
   }
 
