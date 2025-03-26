@@ -23,23 +23,18 @@ export class AddCustomSetDialogComponent implements OnInit {
 
   addCustomSet(setForm: NgForm): void {
     if (setForm.valid) {
-      this.snackbarService.showSnackbar("Adding set...", 'Close');
       const formData = setForm.value;
-
+      console.log(formData);
       this.customSetService.addCustomSet(formData).subscribe({
         next: (response) => {
-          this.dialogRef.close();
         },
         error: (error) => {
           this.snackbarService.showSnackbar(error.error.message, 'Close');
         },
         complete: () => {
-          this.snackbarService.hideSnackbar();
-          this.snackbarService.showSnackbar("Set added successfully.", 'Close');
+          this.dialogRef.close();
         }
       });
-
-      this.dialogRef.close(formData);
     }
   }
 }

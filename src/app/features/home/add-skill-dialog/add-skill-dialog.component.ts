@@ -28,7 +28,6 @@ export class AddSkillDialogComponent implements OnInit {
 
   addSkill(skillForm: NgForm) {
     if (skillForm.valid) {
-      this.snackbarService.showSnackbar("Adding skill...", 'Close');
       const formData = skillForm.value;
       const customSetId = this.data.set._id;
 
@@ -36,18 +35,14 @@ export class AddSkillDialogComponent implements OnInit {
 
       this.customSetService.addSkill(customSetId, formData).subscribe({
         next: (response) => {
-          this.dialogRef.close();
         },
         error: (error) => {
           this.snackbarService.showSnackbar(error.error.message, 'Close');
         },
         complete: () => {
-          this.snackbarService.hideSnackbar();
-          this.snackbarService.showSnackbar("Skill added successfully.", 'Close');
+          this.dialogRef.close();
         }
       });
-
-      this.dialogRef.close(formData);
     }
   }
 }
