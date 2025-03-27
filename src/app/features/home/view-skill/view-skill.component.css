@@ -74,7 +74,7 @@ mat-chip-set mat-chip {
 }
 
 mat-chip-set mat-chip:hover {
-  background:  #fadbd8 ;
+  background: #fadbd8;
   color: white;
 }
 

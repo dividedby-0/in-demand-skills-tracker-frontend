@@ -1,18 +1,18 @@
 // Angular
-import { Component, OnInit, Inject, Output, EventEmitter } from "@angular/core";
-import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
+import {Component, OnInit, Inject, Output, EventEmitter} from "@angular/core";
+import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 
 // Components
-import { AddSkillDialogComponent } from "../add-skill-dialog/add-skill-dialog.component";
-import { ViewSkillComponent } from "../view-skill/view-skill.component";
+import {AddSkillDialogComponent} from "../add-skill-dialog/add-skill-dialog.component";
+import {ViewSkillComponent} from "../view-skill/view-skill.component";
 
 // Services
-import { CustomSetService } from "../../../core/customSet.service";
-import { ConfirmDialogService } from "../../../shared/confirm-dialog.service";
+import {CustomSetService} from "../../../core/customSet.service";
+import {ConfirmDialogService} from "../../../shared/confirm-dialog.service";
 import {SnackbarService} from "../../../shared/snackbar.service";
 
 // Interfaces
-import { Skill } from "../../../interfaces/skill.interface";
+import {Skill} from "../../../interfaces/skill.interface";
 
 // Libraries
 import * as d3 from "d3";
@@ -41,7 +41,8 @@ export class ViewSetComponent implements OnInit {
     private confirmDialogService: ConfirmDialogService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private snackbarService: SnackbarService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.getTagsTotals();
@@ -50,7 +51,7 @@ export class ViewSetComponent implements OnInit {
   openAddSkillDialog(set: any) {
     const dialogRef = this.dialog.open(AddSkillDialogComponent, {
       width: "400px",
-      data: { set: set },
+      data: {set: set},
     });
 
     dialogRef.componentInstance.addSkillDialogClosed.subscribe(() => {
@@ -89,11 +90,11 @@ export class ViewSetComponent implements OnInit {
   onSkillCardClicked(skill: any, data: any): void {
     const dialogRef = this.dialog.open(ViewSkillComponent, {
       width: "500px",
-      data: { skill: skill, setId: data.set._id },
+      data: {skill: skill, setId: data.set._id, userId: data.set.userId},
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-        this.fetchUpdatedSet(this.data.set._id);
+      this.fetchUpdatedSet(this.data.set._id);
     });
   }
 

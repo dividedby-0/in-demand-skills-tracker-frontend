@@ -29,3 +29,7 @@ body {
 .add-space-bottom {
   margin-bottom: 1rem;
 }
+
+.mdc-evolution-chip-set__chips {
+  justify-content: center;
+}

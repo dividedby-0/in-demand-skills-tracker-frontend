@@ -28,7 +28,6 @@
 
   <section class="tags-section">
     <h1>Tags</h1>
-    <p>(click on a tag to delete it)</p>
 
     <div class="tags-area">
       <mat-chip-set *ngIf="data.skill.tags.length > 0">
@@ -40,11 +39,22 @@
       <p *ngIf="data.skill.tags.length === 0">No tags to show :(</p>
     </div>
 
+    <p>(click on a tag to delete it)</p>
+
     <form [formGroup]="tagForm" (ngSubmit)="addNewTag()">
       <mat-form-field>
         <input matInput formControlName="newTag" placeholder="Type to add a new tag..."/>
       </mat-form-field>
     </form>
+
+    <p>or pick one from the tags you already used:</p>
+
+    <mat-chip-set *ngIf="allTags.length > 0">
+      <mat-chip *ngFor="let tag of allTags" (click)="pickTag(tag)">{{
+          tag
+        }}
+      </mat-chip>
+    </mat-chip-set>
 
   </section>
 

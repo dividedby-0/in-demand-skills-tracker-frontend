@@ -1,6 +1,6 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import {Injectable} from "@angular/core";
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
 import {environment} from "../../environments/environment";
 
 @Injectable({
@@ -48,12 +48,17 @@ export class CustomSetService {
 
   updateVotes(setId: string, skillId: string, votes: number): Observable<any> {
     const url = `${this.apiUrl}/${setId}/update-votes/${skillId}`;
-    return this.http.put<any>(url, { votes });
+    return this.http.put<any>(url, {votes});
+  }
+
+  getAllTagsForUser(userID: string): Observable<any[]> {
+    const url = `${this.apiUrl}/${userID}/tags`;
+    return this.http.get<any[]>(url);
   }
 
   addSkillTag(setId: string, skillId: string, tag: string): Observable<any> {
     const url = `${this.apiUrl}/${setId}/add-tag/${skillId}`;
-    return this.http.post<any>(url, { tag });
+    return this.http.post<any>(url, {tag});
   }
 
   removeSkillTag(setId: string, skillId: string, tag: string): Observable<any> {

@@ -12,6 +12,7 @@ import {ConfirmDialogService} from "../../../shared/confirm-dialog.service";
 })
 export class ViewSkillComponent {
   tagForm: FormGroup;
+  allTags: string[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -24,6 +25,10 @@ export class ViewSkillComponent {
     this.tagForm = this.fb.group({
       newTag: ["", Validators.required],
     });
+  }
+
+  ngOnInit(): void {
+    this.retrieveAllTagsForUser();
   }
 
   increaseSkillVotes(): void {
@@ -83,6 +88,19 @@ export class ViewSkillComponent {
     });
   }
 
+  retrieveAllTagsForUser() {
+    this.customSetService.getAllTagsForUser(this.data.userId).subscribe(
+      {
+        next: (response) => {
+          this.allTags = response;
+        }, error: (error) => {
+          this.snackbarService.showSnackbar(error.error.message, 'Close');
+        }, complete: () => {
+        }
+      }
+    );
+  }
+
   addNewTag() {
     const newTagValue = this.tagForm.get("newTag")?.value;
     if (newTagValue) {
@@ -121,5 +139,27 @@ export class ViewSkillComponent {
           this.snackbarService.showSnackbar("Tag deleted successfully.", 'Close');
         }
       });
+  }
+
+  pickTag(tag: string) {
+    if (tag) {
+      this.customSetService
+        .addSkillTag(
+          this.data.setId,
+          this.data.skill._id,
+          tag
+        )
+        .subscribe({
+          next: (response) => {
+            this.tagForm.reset();
+          },
+          error: (error) => {
+            this.snackbarService.showSnackbar(error.error.message, 'Close');
+          },
+          complete: () => {
+            this.data.skill.tags.push(tag);
+          }
+        });
+    }
   }
 }
