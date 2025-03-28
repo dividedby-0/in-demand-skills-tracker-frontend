@@ -12,6 +12,8 @@ import {SnackbarService} from "../../../shared/snackbar.service";
 export class AddSkillDialogComponent implements OnInit {
   @Output() addSkillDialogClosed = new EventEmitter<void>();
 
+  allSkills: string[] = [];
+
   constructor(
     private dialogRef: MatDialogRef<AddSkillDialogComponent>,
     private customSetService: CustomSetService,
@@ -24,6 +26,20 @@ export class AddSkillDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.retrieveAllSkillsForUser();
+  }
+
+  retrieveAllSkillsForUser() {
+    this.customSetService.getAllSkillsForUser(this.data.userId).subscribe(
+      {
+        next: (response) => {
+          this.allSkills = response;
+        }, error: (error) => {
+          this.snackbarService.showSnackbar(error.error.message, 'Close');
+        }, complete: () => {
+        }
+      }
+    );
   }
 
   addSkill(skillForm: NgForm) {
@@ -44,5 +60,23 @@ export class AddSkillDialogComponent implements OnInit {
         }
       });
     }
+  }
+
+  pickSkill(skill: string) {
+    const skillObj = {
+      name: skill,
+      votes: 1
+    };
+
+    this.customSetService.addSkill(this.data.set._id, skillObj).subscribe({
+      next: (response) => {
+      },
+      error: (error) => {
+        this.snackbarService.showSnackbar(error.error.message, 'Close');
+      },
+      complete: () => {
+        this.dialogRef.close();
+      }
+    });
   }
 }

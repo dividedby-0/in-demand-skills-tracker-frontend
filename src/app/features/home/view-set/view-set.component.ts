@@ -51,7 +51,7 @@ export class ViewSetComponent implements OnInit {
   openAddSkillDialog(set: any) {
     const dialogRef = this.dialog.open(AddSkillDialogComponent, {
       width: "400px",
-      data: {set: set},
+      data: {set: set, userId: this.data.set.userId},
     });
 
     dialogRef.componentInstance.addSkillDialogClosed.subscribe(() => {

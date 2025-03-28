@@ -36,9 +36,14 @@ export class CustomSetService {
     return this.http.delete<any>(url);
   }
 
+  getAllSkillsForUser(userId: string): Observable<any[]> {
+    const url = `${this.apiUrl}/${userId}/skills`;
+    return this.http.get<any[]>(url);
+  }
+
   addSkill(customSetId: string, skill: any): Observable<any> {
     const url = `${this.apiUrl}/${customSetId}/add-skill`;
-    return this.http.put<any>(url, skill);
+    return this.http.post<any>(url, skill);
   }
 
   deleteSkill(setId: string, skillId: string): Observable<any> {
